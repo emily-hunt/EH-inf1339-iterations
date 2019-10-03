@@ -1,0 +1,25 @@
+<html>
+    <style>
+        .test_class {
+            font-family: "Verdana";
+            /* text is 1.5 % of view width*/
+            font-size:1.5vw;
+        }
+    
+    </style>
+    <script>
+        function hello() {
+           document.getElementById("sentinel").innerHTML= "HELLO";
+        }
+    </script>
+    <head>
+        <title>yourFirstName INF1339 Project 2</title>
+    </head>
+    <body>
+        <h3>API Project Iteration 0</h3>
+        <p id="sentinel" class="test_class"></p>
+        <button type="button" onclick="hello()">
+            click me
+        </button>
+    </body>
+</html>
