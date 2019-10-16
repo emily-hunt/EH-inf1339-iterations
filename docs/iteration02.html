@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        .test_class {
+            font-family: "Verdana";
+            /* text is 1.5 % of view width*/
+            font-size:1.5vw;
+        }
+        p {
+            /* text is 1.5 % of view width*/
+            font-size:1.5vw;
+        }
+        h2 {
+            /* text is 3% of view width*/
+            font-size:3vw;
+        }
+        h3 {
+            /* text is 2% of view width*/
+            font-size:2vw;
+        }
+    
+    </style>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+        <script>
+            var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?q=puppy&api-key=WS6GtGji68A11UlFG3lkiZGq7tz5JEuc";
+            var articleCount = 0;
+            function setup() {
+                noCanvas();
+                loadJSON(url, gotData);
+            }
+
+            function gotData(data) {
+               appendToPage (data)
+               var hits = data.response.meta.hits
+               for (var i = 1; i < 3; i++) {
+               loadJSON(url + '&page=' + i, appendToPage)
+               }
+           }
+            
+            function appendToPage(data) {
+                //MOVE the docs array part of JSON object to "articles" to save typing
+                var articles = data.response.docs;
+                //LOOP over the array, creating a heading and a paragraph for each article
+                for (var i = 0; i < articles.length; i++) {
+                    //increment the counter (so we can number the headlines)
+                    articleCount++
+                    //create a heading element, put text in it, append it to <BODY>
+                    h = document.createElement('h3')
+                    h.innerHTML = '(' + articleCount + ') ' + (articles[i].headline.main).toUpperCase()
+                    document.body.appendChild(h);
+                    //create a paragraph element, put text in it, append it to <BODY>
+                    p = document.createElement('p')
+                    p.innerHTML = (articles[i].snippet).toLowerCase()
+                    document.body.appendChild(p);  
+                  }
+            }
+        </script>
+        <title>Emily INF1339 Project 2</title>
+    </head>
+    <body>
+        <h2>New York Times API: Articles from all time about puppies</h2>
+        <p id="test_output" class="output test_class"></p>
+<!--        <p id="sentinel" class="test_class"></p>-->
+    </body>
+</html>
